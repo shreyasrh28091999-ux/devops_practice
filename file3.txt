@@ -1,1 +1,2 @@
-this is 3rd file
+this is my modification amd i dont want to merge
+snd dont add
