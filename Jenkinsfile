@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'agent1'
+        label '!master'
     }
     environment {
   USER = "shreyas"
@@ -15,6 +15,9 @@ parameters {
     stages {
 
         stage('Checkout') {
+            agent {
+        label 'agent1'
+    }
             steps {
                 echo 'Checking out code...'
                 echo "${env.PLACE}"
@@ -29,6 +32,9 @@ parameters {
         }
 
         stage('Build') {
+            agent {
+        label 'agent2'
+    }
             steps {
                 echo 'Building application...'
                 sh ''' 
@@ -39,6 +45,9 @@ parameters {
         }
 
         stage('Test') {
+            agent {
+        label 'agent1'
+    }
             steps {
                 echo 'Testing application...'
                 sh 'echo "$date" '
@@ -46,6 +55,9 @@ parameters {
         }
 
         stage('Deploy') {
+            agent {
+        label 'agent2'
+    }
             steps {
                 echo 'Deployment successful!'
             }
