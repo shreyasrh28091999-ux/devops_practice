@@ -18,12 +18,17 @@ parameters {
             agent {
         label 'agent1'
     }
+    environment {
+  ROLE = "Emginner"
+  TECH = "devops"
+}
             steps {
                 echo 'Checking out code...'
                 echo "${env.PLACE}"
                 echo "${params.Environment}"
                 sh 'bash ./script.sh'
-                
+                echo "{env.ROLE}"
+                echo "{env.TECH}"
                 sh '''
                 echo "this is checking"
                 sleep 5
