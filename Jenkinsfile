@@ -6,6 +6,11 @@ pipeline {
   USER = "shreyas"
   PLACE = "banglore"
 }
+parameters {
+  choice choices: ['Testing', 'staging', 'pre production', 'production'], description: 'to determine where to run', name: 'Environment'
+  booleanParam description: 'to check something', name: 'check ready'
+}
+
 
     stages {
 
