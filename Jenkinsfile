@@ -12,14 +12,16 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building application...'
-                sh 'chmod +x app.sh'
+                sh ''' 
+sleep 5
+ls -lrt'''
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Testing application...'
-                sh './app.sh'
+                sh 'echo "$date" '
             }
         }
 
