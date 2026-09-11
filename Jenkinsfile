@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out code...'
-                echo ${env.PLACE}
+                echo "${env.PLACE}"
                 sh '''
                 echo "this is checking"
                 sleep 5
