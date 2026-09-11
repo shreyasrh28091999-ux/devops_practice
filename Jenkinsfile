@@ -1,11 +1,12 @@
 pipeline {
-    agent any
+    agent agent1
 
     stages {
 
         stage('Checkout') {
             steps {
                 echo 'Checking out code...'
+                sh 'echo "this is checking'
             }
         }
 
@@ -13,8 +14,9 @@ pipeline {
             steps {
                 echo 'Building application...'
                 sh ''' 
-sleep 5
-ls -lrt'''
+                    sleep 5
+                    ls -lrt
+                    '''
             }
         }
 
