@@ -2,15 +2,21 @@ pipeline {
     agent {
         label 'agent1'
     }
+    environment {
+  USER = "shreyas"
+  PLACE = "banglore"
+}
 
     stages {
 
         stage('Checkout') {
             steps {
                 echo 'Checking out code...'
+                echo ${env.PLACE}
                 sh '''
                 echo "this is checking"
                 sleep 5
+                echo "$USER"
                  '''
             }
         }
