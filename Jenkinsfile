@@ -18,8 +18,8 @@ parameters {
             steps {
                 echo 'Checking out code...'
                 echo "${env.PLACE}"
-                echo "${params.choices}"
-                echo "${params.booleanParam}"
+                echo "${params.choice}"
+                
                 sh '''
                 echo "this is checking"
                 sleep 5
