@@ -1,12 +1,17 @@
 pipeline {
-    agent any
+    agent {
+        label 'agent1'
+    }
 
     stages {
 
         stage('Checkout') {
             steps {
                 echo 'Checking out code...'
-                sh 'echo "this is checking" '
+                sh '''
+                echo "this is checking"
+                sleep 5
+                 '''
             }
         }
 
