@@ -27,8 +27,8 @@ parameters {
                 echo "${env.PLACE}"
                 echo "${params.Environment}"
                 sh 'bash ./script.sh'
-                echo "{env.ROLE}"
-                echo "{env.TECH}"
+                echo "${env.ROLE}"
+                echo "${env.TECH}"
                 sh '''
                 echo "this is checking"
                 sleep 5
