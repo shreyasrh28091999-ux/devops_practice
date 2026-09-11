@@ -18,7 +18,7 @@ parameters {
             steps {
                 echo 'Checking out code...'
                 echo "${env.PLACE}"
-                echo "${params.choice}"
+                echo "${params.Environment}"
                 
                 sh '''
                 echo "this is checking"
