@@ -22,7 +22,7 @@ parameters {
                 echo 'Checking out code...'
                 echo "${env.PLACE}"
                 echo "${params.Environment}"
-                sh 'bash script.sh'
+                sh 'bash ./script.sh'
                 
                 sh '''
                 echo "this is checking"
