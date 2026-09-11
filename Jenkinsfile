@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out code...'
-                sh 'echo "this is checking'
+                sh 'echo "this is checking" '
             }
         }
 
