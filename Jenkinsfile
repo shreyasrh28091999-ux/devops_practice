@@ -58,7 +58,7 @@ pipeline{
             
             steps{
                 echo "this is deployed"
-                echo "$BRANCH_NAME"
+                echo "$GIT_BRANCH"
             }
         }
     }
