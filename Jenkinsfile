@@ -25,7 +25,7 @@ pipeline{
                         '''
                     }
                     catch(Exception e){
-                        echo "caught an error messgae {e.mesasge}"
+                        echo "caught an error messgae ${e.mesasge}"
                     }
                     finally{
                         echo "cleaning up ..."
