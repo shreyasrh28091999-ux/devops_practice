@@ -8,7 +8,7 @@ pipeline{
            
             }
         }
-        stage("stage1"){
+        stage("stage2"){
             steps{
                 catchError(buildResult : 'SUCCESS',stageResult : 'FAIL'){
                                     echo "starting stage 1"
@@ -19,8 +19,8 @@ pipeline{
             }
            
             }
-        }
-        stage("stage2"){
+        
+        stage("stage3"){
             steps{
                 sh '''
                 echo "starting stage 2"
