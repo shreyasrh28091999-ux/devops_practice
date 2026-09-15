@@ -56,7 +56,7 @@ pipeline{
                 }
             }
             when{
-                branch == 'origin/main'
+                branch 'origin/main'
             }
             
             steps{
