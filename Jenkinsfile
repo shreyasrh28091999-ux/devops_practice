@@ -18,7 +18,7 @@ pipeline{
         }
         stage("Stage3"){
             steps{
-                node{
+                script{
                     try{
                         sh '''
                         exit 1 
