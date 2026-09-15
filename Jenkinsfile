@@ -7,11 +7,12 @@ pipeline{
             }
            
             }
-        }
+        
         stage("stage2"){
             steps{
-                catchError(buildResult : 'SUCCESS',stageResult : 'FAIL'){
-                                    echo "starting stage 1"
+                catchError(buildResult : 'SUCCESS',stageResult : 'FAIL')
+                {
+                echo "starting stage 1"
                 sh '''
                 sleep 5
                 exit 1
@@ -23,12 +24,13 @@ pipeline{
         stage("stage3"){
             steps{
                 sh '''
-                echo "starting stage 2"
+                echo "starting stage 3"
                 sleep 5
                 '''
             }
            
             }
+    }
         
     post{
         always{
