@@ -10,7 +10,7 @@ pipeline{
             steps{
                 echo "this is stage 1"
                 sh 'sleep 5'
-                echo 'app version ${env.version}'
+                echo "app version ${env.version}"
                 script{ 
                     stage1status = 'SUCCESS'
                     }
