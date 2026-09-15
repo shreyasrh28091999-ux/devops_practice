@@ -1,11 +1,16 @@
 def stage1status = ''
 pipeline{
     agent any
+    environment {
+  version = "1.0.01"
+   = ""
+}
     stages{
         stage("Stage1"){
             steps{
                 echo "this is stage 1"
                 sh 'sleep 5'
+                echo 'app version ${env.version}'
                 script{ 
                     stage1status = 'SUCCESS'
                     }
