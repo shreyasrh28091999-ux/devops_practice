@@ -6,7 +6,9 @@ pipeline{
             steps{
                 echo "this is stage 1"
                 sh 'sleep 5'
-                script {stage1status ='SUCCESS'}
+                script{ 
+                    stage1status = 'SUCCESS'
+                    }
             }
         }
         stage("Stage2"){
