@@ -3,8 +3,7 @@ pipeline{
     agent any
     environment {
   version = "1.0.01"
-   = ""
-}
+    }
     stages{
         stage("Stage1"){
             steps{
