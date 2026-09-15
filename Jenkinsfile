@@ -1,46 +1,27 @@
 pipeline{
     agent any
     stages{
-        stage("stage1"){
+        stage("Stage1"){
             steps{
-                echo "starting stage 1"
+                echo "this is stage 1"
+                sh 'sleep 5'
             }
-           
-            }
-        
-        stage("stage2"){
-            steps{
-                catchError(buildResult : 'SUCCESS',stageResult : 'FAIL')
-                {
-                echo "starting stage 1"
-                sh '''
-                sleep 5
-                exit 1
-                '''}
-            }
-           
-            }
-        
-        stage("stage3"){
-            steps{
-                sh '''
-                echo "starting stage 3"
-                sleep 5
-                '''
-            }
-           
-            }
-    }
-        
-    post{
-        always{
-            echo "========always========"
         }
-        success{
-            echo "========pipeline executed successfully ========"
+        stage("Stage2"){
+            steps{
+                catchError(buildResult : 'SUCCESS',stageResult : 'FAIL'){
+                    sh '''
+                    exit 1
+                    '''
+                }
+            }
         }
-        failure{
-            echo "========pipeline execution failed========"
+        stage("Stage3"){
+            steps{
+                echo "this is step 3"
+                sh ''' sleep 5 '''
+            }
         }
     }
 }
+  
