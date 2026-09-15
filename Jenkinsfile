@@ -55,6 +55,9 @@ pipeline{
                     params.area == 'production'
                 }
             }
+            when{
+                branch == 'origin/main'
+            }
             
             steps{
                 echo "this is deployed"
