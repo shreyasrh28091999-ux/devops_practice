@@ -55,7 +55,7 @@ pipeline{
                     params.area == 'production'
                 }
             }
-            \
+            
             steps{
                 echo "this is deployed"
                 echo "$BRANCH_NAME"
