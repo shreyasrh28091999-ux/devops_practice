@@ -18,8 +18,25 @@ pipeline{
         }
         stage("Stage3"){
             steps{
-                echo "this is step 3"
-                sh ''' sleep 5 '''
+                node{
+                    try{
+                        sh '''
+                        exit 1 
+                        '''
+                    }
+                    catch(Exception e){
+                        echo "caught an error messgae {e.mesasge}"
+                    }
+                    finally{
+                        echo "cleaning up ..."
+                    }
+                }
+                
+            }
+        }
+        stage("stage4"){
+            steps{
+                echo "this stage 4"
             }
         }
     }
