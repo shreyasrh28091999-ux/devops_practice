@@ -11,8 +11,8 @@ pipeline{
         }
         stage("Stage2"){
             when{
-                expression {
-                    stage1status == 'SUCCESS'
+                expression{
+                    env.stage1status == 'SUCCESS'
                 }
             }
             steps{
