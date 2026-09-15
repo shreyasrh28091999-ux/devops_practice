@@ -1,3 +1,4 @@
+def stage1status = ''
 pipeline{
     agent any
     stages{
@@ -5,13 +6,20 @@ pipeline{
             steps{
                 echo "this is stage 1"
                 sh 'sleep 5'
+                stage1status = 'SUCCESS'
             }
         }
         stage("Stage2"){
+            when{
+                expression {
+                    stage1status == 'SUCCESS'
+                }
+            }
             steps{
                 catchError(buildResult: 'SUCCESS',stageResult: 'FAILURE'){
                     sh '''
-                    exit 1
+                    echo "starting stage 2 build"
+                    sleep 3
                     '''
                 }
             }
