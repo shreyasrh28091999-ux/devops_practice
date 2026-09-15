@@ -4,6 +4,9 @@ pipeline{
     environment {
   version = "1.0.01"
     }
+    parameters {
+  choice choices: ['test', 'build', 'pre prod', 'production'], description: 'area to be forwarded', name: 'area'
+}
     stages{
         stage("Stage1"){
             steps{
@@ -47,8 +50,13 @@ pipeline{
             }
         }
         stage("stage4"){
+            when{
+                expression {
+                    params.area == 'production'
+                }
+            }
             steps{
-                echo "this stage 4"
+                echo "this is deployed"
             }
         }
     }
