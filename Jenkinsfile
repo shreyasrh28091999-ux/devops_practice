@@ -64,7 +64,7 @@ pipeline{
         }
         stage("deployment"){
             when{
-                branch 'origin/main'
+                env.GIT_BRANCH == 'origin/main'
             }
             steps{
                 echo "deploying to production"
