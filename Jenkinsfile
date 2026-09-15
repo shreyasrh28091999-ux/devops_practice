@@ -1,72 +1,43 @@
-pipeline {
-    agent {
-        label '!master'
-    }
-    environment {
-  USER = "shreyas"
-  PLACE = "banglore"
-}
-parameters {
-  choice choices: ['Testing', 'staging', 'pre production', 'production'], description: 'to determine where to run', name: 'Environment'
-  booleanParam description: 'to check something', name: 'check ready'
-}
-
-
-    stages {
-
-        stage('Checkout') {
-            agent {
-        label 'agent1'
-    }
-    environment {
-  ROLE = "Emginner"
-  TECH = "devops"
-}
-            steps {
-                echo 'Checking out code...'
-                echo "${env.PLACE}"
-                echo "${params.Environment}"
-                sh 'bash ./script.sh'
-                echo "${env.ROLE}"
-                echo "${env.TECH}"
+pipeline{
+    agent any
+    stages{
+        stage("stage1"){
+            steps{
+                echo "starting stage 1"
+            }
+           
+            }
+        }
+        stage("stage1"){
+            steps{
+                echo "starting stage 1"
                 sh '''
-                echo "this is checking"
                 sleep 5
-                echo "$USER"
-                 '''
+                exit 1
+                '''
+            }
+           
             }
         }
-
-        stage('Build') {
-            agent {
-        label 'agent2'
-    }
-            steps {
-                echo 'Building application...'
-                sh ''' 
-                    sleep 5
-                    ls -lrt
-                    '''
+        stage("stage2"){
+            steps{
+                sh '''
+                echo "starting stage 2"
+                sleep 5
+                '''
             }
+           
+            }
+        
+    post{
+        always{
+            echo "========always========"
         }
-
-        stage('Test') {
-            agent {
-        label 'agent1'
-    }
-            steps {
-                echo 'Testing application...'
-                sh 'echo "$date" '
-            }
+        success{
+            echo "========pipeline executed successfully ========"
         }
-
-        stage('Deploy') {
-            agent {
-        label 'agent2'
-    }
-            steps {
-                echo 'Deployment successful!'
-            }
+        failure{
+            echo "========pipeline execution failed========"
         }
     }
 }
