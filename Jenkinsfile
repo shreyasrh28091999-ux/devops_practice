@@ -3,12 +3,13 @@ pipeline{
     triggers {
             cron 'H */12 * * *'
             pollSCM 'H */9 * * *'
-            timeout(30)
+            
 
     }
     options {
   buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '21', numToKeepStr: '10')
   disableConcurrentBuilds abortPrevious: true
+  timeout(30)
     }
 
 
