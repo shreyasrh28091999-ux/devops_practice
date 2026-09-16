@@ -4,6 +4,11 @@ pipeline{
             cron 'H */12 * * *'
             pollSCM 'H */9 * * *'
     }
+    options {
+  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '21', numToKeepStr: '10')
+  disableConcurrentBuilds abortPrevious: true
+    }
+
 
     stages{
         stage("stage1"){
