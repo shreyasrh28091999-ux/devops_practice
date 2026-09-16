@@ -12,8 +12,8 @@ pipeline{
         }
         stage("chechking out scm"){
             steps{
-            git branch: 'main'
-            credentialsId: 'github_repo'
+            git branch: 'main',
+            credentialsId: 'github_repo',
             url: 'https://github.com/QwenLM/Qwen.git'
             }
         }
