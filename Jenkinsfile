@@ -10,22 +10,22 @@ pipeline{
             }
             
         }
-        stage("chechking out scm"){
-            steps{
-            git branch: 'main',
-            credentialsId: 'github_repo',
-            url: 'https://github.com/QwenLM/Qwen.git'
-            }
-        }
-        stage("checking whether in that branch"){
-            steps{
-                sh'''
-                pwd
-                ls -lrt
-                sleep 5
-                '''
-            }
-        }
+        // stage("chechking out scm"){
+        //     steps{
+        //     git branch: 'main',
+        //     credentialsId: 'github_repo',
+        //     url: 'https://github.com/QwenLM/Qwen.git'
+        //     }
+        // }
+        // stage("checking whether in that branch"){
+        //     steps{
+        //         sh'''
+        //         pwd
+        //         ls -lrt
+        //         sleep 5
+        //         '''
+        //     }
+        // }
         stage("classical method branch"){
             steps{
                 checkout([
