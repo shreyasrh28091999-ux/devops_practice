@@ -26,6 +26,27 @@ pipeline{
                 '''
             }
         }
+        stage("classical method branch"){
+            steps{
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [['*/main']],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/ashishpatel26/500-AI-Agents-Projects.git',
+                        credentialsId: 'github_repo'
+                    ]],
+                    submoduleCfg: []
+                ])
+            }
+        }
+        stage("listing in new repo"){
+            steps{
+                sh '''
+                ls -lrt
+                sleep 3
+                '''
+            }
+        }
     }
     
 }
