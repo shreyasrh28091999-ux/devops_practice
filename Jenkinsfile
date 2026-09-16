@@ -1,77 +1,31 @@
-def stage1status = ''
 pipeline{
     agent any
-    environment {
-  version = "1.0.01"
-    }
-    parameters {
-  choice choices: ['test', 'build', 'pre prod', 'production'], description: 'area to be forwarded', name: 'area'
-}
     stages{
-        stage("Stage1"){
+        stage("stage1"){
             steps{
-                echo "this is stage 1"
-                sh 'sleep 5'
-                echo "${env.version}"
-                script{
-                    stage1status = 'SUCCESS'
-            }
-            }
-        }
-        stage("Stage2"){
-            when{
-                expression{
-                    stage1status == 'SUCCESS'
-                }
-            }
-            steps{
-                catchError(buildResult: 'SUCCESS',stageResult: 'FAILURE'){
-                    sh '''
-                    echo "starting stage 2 build"
-                    sleep 3
-                    '''
-                }
-            }
-        }
-        stage("Stage3"){
-            steps{
-                script{
-                    try{
-                        sh '''
-                        exit 1 
-                        '''
-                    }
-                    catch(err){
-                        echo "caught an error messgae ${err}"
-                    }
-                    
-                }
-                
-            }
-        }
-        stage("stage4"){
-            when{
-                expression {
-                    params.area == 'production'
-                }
+                sh '''
+                pwd
+                echo "this is executing in jenkins file folder"
+                '''
             }
             
-        
+        }
+        stage("chechking out scm"){
             steps{
-                echo "this is deployed"
-                echo "$GIT_BRANCH"
+            git branch: 'main'
+            credentialsId: 'github_repo'
+            url: 'https://github.com/QwenLM/Qwen.git'
             }
         }
-        stage("deployment"){
-            when{
-                expression{
-                env.GIT_BRANCH == 'origin/main'
-            }
-            }
+        stage("checking whether in that branch"){
             steps{
-                echo "deploying to production"
+                sh'''
+                pwd
+                ls -lrt
+                sleep 5
+                '''
             }
         }
     }
+    
 }
-  
