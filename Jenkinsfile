@@ -54,6 +54,7 @@ pipeline{
         }
         stage("checking parallel execution"){
             parallel{
+                failFast
                 stage("paralel 1"){
                     steps{
                         sh '''
