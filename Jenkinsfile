@@ -31,25 +31,50 @@ pipeline{
         //         '''
         //     }
         // }
-        stage("classical method branch"){
-            steps{
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name:'*/main']],
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/ashishpatel26/500-AI-Agents-Projects.git',
-                        credentialsId: 'github_repo'
-                    ]],
-                    submoduleCfg: []
-                ])
-            }
-        }
+        // stage("classical method branch"){
+        //     steps{
+        //         checkout([
+        //             $class: 'GitSCM',
+        //             branches: [[name:'*/main']],
+        //             userRemoteConfigs: [[
+        //                 url: 'https://github.com/ashishpatel26/500-AI-Agents-Projects.git',
+        //                 credentialsId: 'github_repo'
+        //             ]],
+        //             submoduleCfg: []
+        //         ])
+        //     }
+        // }
         stage("listing in new repo"){
             steps{
                 sh '''
                 ls -lrt
                 sleep 3
                 '''
+            }
+        }
+        stage("checking parallel execution"){
+            parallel{
+                stage("paralel 1"){
+                    steps{
+                        sh '''
+                        sleep 5
+                        '''
+                    }
+                }
+                stage("paralel 2"){
+                    steps{
+                        sh '''
+                        sleep 5
+                        '''
+                    }
+                }
+                stage("paralel 3"){
+                    steps{
+                        sh '''
+                        sleep 5
+                        '''
+                    }
+                }
             }
         }
     }
