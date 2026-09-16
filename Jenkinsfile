@@ -30,7 +30,7 @@ pipeline{
             steps{
                 checkout([
                     $class: 'GitSCM',
-                    branches: [['*/main']],
+                    branches: [[name:'*/main']],
                     userRemoteConfigs: [[
                         url: 'https://github.com/ashishpatel26/500-AI-Agents-Projects.git',
                         credentialsId: 'github_repo'
