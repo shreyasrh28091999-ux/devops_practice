@@ -1,92 +1,32 @@
 pipeline{
-    agent any
-    triggers {
-            cron 'H */12 * * *'
-            pollSCM 'H */9 * * *'
-            
-
-    }
-    options {
-  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '21', numToKeepStr: '10')
-  disableConcurrentBuilds abortPrevious: true
-  timeout(30)
-    }
-
-
+    agent none
     stages{
-        stage("stage1"){
+        stage('in agent1'){
+            agent{
+                label 'agent1'
+            }
             steps{
                 sh '''
-                pwd
-                echo "this is executing in jenkins file folder"
+                echo "this is in agent1"
+                echo "hello from agent1" > newfile.txt
+                cat newfile.txt
                 '''
+                stash name: 'newfile',
+                includes: 'newfile.txt'
             }
-            
         }
-        // stage("chechking out scm"){
-        //     steps{
-        //     git branch: 'main',
-        //     credentialsId: 'github_repo',
-        //     url: 'https://github.com/QwenLM/Qwen.git'
-        //     }
-        // }
-        // stage("checking whether in that branch"){
-        //     steps{
-        //         sh'''
-        //         pwd
-        //         ls -lrt
-        //         sleep 5
-        //         '''
-        //     }
-        // }
-        // stage("classical method branch"){
-        //     steps{
-        //         checkout([
-        //             $class: 'GitSCM',
-        //             branches: [[name:'*/main']],
-        //             userRemoteConfigs: [[
-        //                 url: 'https://github.com/ashishpatel26/500-AI-Agents-Projects.git',
-        //                 credentialsId: 'github_repo'
-        //             ]],
-        //             submoduleCfg: []
-        //         ])
-        //     }
-        // }
-        stage("listing in new repo"){
+        stage('in agent 2'){
+            agent{
+                label 'agent2'
+            }
             steps{
-                sh '''
-                ls -lrt
-                sleep 3
+                unstash 'newfile'
+                sh'''
+                echo "file recieved"
+                cat newfile.txt
                 '''
-            }
-        }
-        stage("checking parallel execution"){
-            failFast true
-            parallel{
-                
-                stage("paralel 1"){
-                    steps{
-                        sh '''
-                        sleep 5
-                        '''
-                    }
-                }
-                stage("paralel 2"){
-                    steps{
-                        sh '''
-                        sleep 5
-                        '''
-                    }
-                }
-                stage("paralel 3"){
-                    steps{
-                        sh '''
-                        sleep 5
-                        '''
-                    }
-                }
             }
         }
     }
-    
 }
+    
