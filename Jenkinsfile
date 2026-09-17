@@ -13,6 +13,7 @@ pipeline{
                 '''
                 stash name: 'newfile',
                 includes: 'newfile.txt'
+                archieveArtifacts artifacts: 'newfile.txt'
             }
         }
         stage('in agent 2'){
