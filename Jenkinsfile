@@ -1,33 +1,38 @@
 pipeline{
     agent none
     stages{
-        stage('in agent1'){
+        stage('checking in agent1'){
             agent{
                 label 'agent1'
             }
             steps{
+                echo "this is execution in agent 1"
                 sh '''
-                echo "this is in agent1"
-                echo "hello from agent1" > newfile.txt
-                cat newfile.txt
+                whoami
+                echo "this is execution in agent1"
                 '''
-                stash name: 'newfile',
-                includes: 'newfile.txt'
-                archieveArtifacts artifacts: 'newfile.txt'
             }
+        
         }
-        stage('in agent 2'){
-            agent{
-                label 'agent2'
-            }
-            steps{
-                unstash 'newfile'
-                sh'''
-                echo "file recieved"
-                cat newfile.txt
-                '''
+        stage('creating parralel in stage2'){
+            parallel{
+                stage('parallel 1'){
+                    agent{
+                        label 'agent2'
+                    }
+                    steps{
+                        echo "this is parallel in agent 2"
+                    }
+                }
+                stage('parallel 2'){
+                    agent{
+                        label 'agent1'
+                    }
+                    steps{
+                        echo "this is paralel execution in agent1"
+                    }
+                }
             }
         }
     }
 }
-    
