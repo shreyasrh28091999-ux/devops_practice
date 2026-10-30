@@ -1,65 +1,37 @@
-pipeline {
-    agent {
-        label '!master'
-    }
-    environment {
-  USER = "shreyas"
-  PLACE = "banglore"
-}
-parameters {
-  choice choices: ['Testing', 'staging', 'pre production', 'production'], description: 'to determine where to run', name: 'Environment'
-  booleanParam description: 'to check something', name: 'check ready'
-}
-
-
-    stages {
-
-        stage('Checkout') {
-            agent {
-        label 'agent1'
-    }
-            steps {
-                echo 'Checking out code...'
-                echo "${env.PLACE}"
-                echo "${params.Environment}"
-                
+pipeline{
+    agent none
+    stages{
+        stage('checking in agent1'){
+            agent{
+                label 'agent1'
+            }
+            steps{
+                echo "this is execution in agent 1"
                 sh '''
-                echo "this is checking"
-                sleep 5
-                echo "$USER"
-                 '''
+                whoami
+                echo "this is execution in agent1"
+                '''
             }
+        
         }
-
-        stage('Build') {
-            agent {
-        label 'agent2'
-    }
-            steps {
-                echo 'Building application...'
-                sh ''' 
-                    sleep 5
-                    ls -lrt
-                    '''
-            }
-        }
-
-        stage('Test') {
-            agent {
-        label 'agent1'
-    }
-            steps {
-                echo 'Testing application...'
-                sh 'echo "$date" '
-            }
-        }
-
-        stage('Deploy') {
-            agent {
-        label 'agent2'
-    }
-            steps {
-                echo 'Deployment successful!'
+        stage('creating parralel in stage2'){
+            parallel{
+                stage('parallel 1'){
+                    agent{
+                        label 'agent2'
+                    }
+                    steps{
+                        echo "this is parallel in agent 2"
+                    }
+                }
+                stage('parallel 2'){
+                    agent{
+                        label 'agent1'
+                    }
+                    steps{
+                        echo "this is paralel execution in agent1"
+                    }
+                }
             }
         }
     }
